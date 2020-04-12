@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 
 import Home from '../components/Home/Home';
+import Contact from '../components/Contact/Contact';
 import NavTop from '../components/NavTop/NavTop';
 import Footer from '../components/Footer/Footer'
 import Mowing from '../components/Residential/Mowing';
@@ -22,13 +23,6 @@ import Government from '../components/Commercial/Government';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 
-const PublicRoute = ({ component: Component, authed, ...rest }) => {
-  const routeChecker = props => (authed === false
-    ? (<Component authed={authed} {...props} {...rest} />)
-    : (<Redirect to={{ pathname: '/search', state: { from: props.location } }} />));
-  return <Route {...rest} render={props => routeChecker(props)} />;
-};
-
 class App extends React.Component {
   
   render(){ 
@@ -38,9 +32,17 @@ class App extends React.Component {
           <NavTop />
 
           <Switch>
-          <PublicRoute path="/residential/mowing" component={Mowing} />
+          <Route exact path="/" component={Home} />
+          <Route path="/contact" component={Contact} />
+          <Route path="/mowing" component={Mowing} />
+          <Route path="/fertilization" component={Fertilization} />
+          <Route path="/other" component={Other} />
 
+          <Route path="/commercial" component={Commercial} />
+          <Route path="/government" component={Government} />
+          <Route path="/multifamily" component={MultiFamily} />
           </Switch>
+
         </Router>
       </div>
     );
